@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Details</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+    }
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        margin-bottom: 5px;
+        color: #555;
+    }
+    input[type="text"], input[type="number"] {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    #result {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        background: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #result h2 {
+        margin-top: 0;
+    }
+    #result p {
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Enter Student Details</h2>
+    <form id="studentForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="grade">Grade:</label>
+        <input type="text" id="grade" name="grade" required>
+
+        <label for="subject1">Subject 1 Marks:</label>
+        <input type="number" id="subject1" name="subject1" required>
+
+        <label for="subject2">Subject 2 Marks:</label>
+        <input type="number" id="subject2" name="subject2" required>
+
+        <label for="subject3">Subject 3 Marks:</label>
+        <input type="number" id="subject3" name="subject3" required>
+
+        <label for="subject4">Subject 4 Marks:</label>
+        <input type="number" id="subject4" name="subject4" required>
+
+        <label for="subject5">Subject 5 Marks:</label>
+        <input type="number" id="subject5" name="subject5" required>
+
+        <button type="button" onclick="addStudent()">Submit</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    class Student {
+        constructor(name, age, grade, subjectMarks) {
+            this.name = name;
+            this.age = age;
+            this.grade = grade;
+            this.subjectMarks = subjectMarks;
+            this.totalMarks = this.calculateTotalMarks();
+        }
+
+        calculateTotalMarks = () => this.subjectMarks.reduce((acc, mark) => acc + mark, 0);
+    }
+
+    const addStudent = () => {
+        const name = document.getElementById('name').value;
+        const age = parseInt(document.getElementById('age').value);
+        const grade = document.getElementById('grade').value;
+        const subjectMarks = [
+            parseInt(document.getElementById('subject1').value),
+            parseInt(document.getElementById('subject2').value),
+            parseInt(document.getElementById('subject3').value),
+            parseInt(document.getElementById('subject4').value),
+            parseInt(document.getElementById('subject5').value)
+        ];
+
+        const student = new Student(name, age, grade, subjectMarks);
+
+        displayStudentDetails(student);
+    }
+
+    const displayStudentDetails = (student) => {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `<h2>Student Details</h2>
+                               <p><strong>Name:</strong> ${student.name}</p>
+                               <p><strong>Age:</strong> ${student.age}</p>
+                               <p><strong>Grade:</strong> ${student.grade}</p>
+                               <p><strong>Total Marks:</strong> ${student.totalMarks}</p>`;
+    }
+</script>
+
+</body>
+</html>
